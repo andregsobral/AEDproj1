@@ -404,13 +404,13 @@ int main(){
             executa_d(); /* Executa comando d */
             break;
         case 'c':
-            executa_c(); /* Executa comando c */
+            executa_c();/* Executa comando c */
             break;
         case 'w':
-			executa_w(); /* Executa comando w */
+			executa_w();/* Executa comando w */
             break;
         case 't':
-            executa_t(); /* Executa comando t */
+            executa_t();/* Executa comando t */
             break;
         case 'v':
             /* Executa comando v */
@@ -427,7 +427,7 @@ int main(){
     return EXIT_FAILURE;
 }
 
-/*alhsdjahslhajkhladhdjahdjhjkhajkshadjksh*/
+
 
 /* restantes funcoes */
 
