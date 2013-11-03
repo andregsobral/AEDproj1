@@ -50,8 +50,9 @@ double margem[NUM_P];
 /* Funcoes */
 void executa_d();
 void executa_c();
-void executa_w();
+void executa_w(int i);
 void executa_t();
+void executa_v(int i, double desconto);
 
 
 /* Funcoes que calculam os diferentes custos dos produtos */
@@ -82,12 +83,20 @@ void leNome_produto (){ /* Funcao que le o nome dos produtos */
 	int i;
 	for ( i = 0 ; i< NUM_P; i++){
 		scanf("%s", lista_produtos[i].nome);
-		if(i!=0){
+		if(i!=0)
 			printf(" ");
-		}
 		printf("%s", lista_produtos[i].nome);
 	}
-	printf("\n");
+
+	/*if(i>4)
+	{
+		printf("\nExecedeu o limite maximo de 5 produtos\n");
+		exit (0);
+	}
+	if ()*/
+													
+
+	printf("\n");		
 }
 
 /* Comando j n */		
@@ -353,11 +362,8 @@ void executa_c(){
 	
 }
 
-void executa_w(){
+void executa_w(int i){
 
-	int i;
-
-	scanf("%d",&i);
 	i= i-1;
 
 	printf("W %s A:%.2f B:%.2f C:%.2f D:%.2f E:%.2f F:%.2f\n",lista_produtos[i].nome,custoA,custoB[i],custoC[i],custoD[i],custoE,custoF[i]);
@@ -386,14 +392,51 @@ void executa_t(){
 	
 
 
-
+	
 }
 
+void executa_v(int i , double desconto)
+{
+
+	double custo = 0;
+	double venda = 0;
+	double margem = 0;
+	double margem_d = 0;
+	double vendaD = 0;
+	char decisao[NUM_P];
+
+	i = i - 1;
+
+	venda = lista_produtos[i].PVendas * lista_produtos[i].vendas;
+
+	custo = cTOT[i]*lista_produtos[i].vendas;
+
+	margem = ((venda - custo)/(venda))*CEM_POR_CENTO;
+
+	vendaD = (lista_produtos[i].PVendas) - desconto * lista_produtos[i].PVendas;
+
+	margem_d = (vendaD - custo)/(vendaD)*CEM_POR_CENTO;
+
+	if (cTOT[i] <= vendaD)
+		decisao[NUM_P] = "tot";
+	else if (cIND[i] <= vendaD && vendaD < cTOT[i])
+		decisao[NUM_P] = "ind";
+	else if (cMPEE[i] <= vendaD && vendaD < cIND[i])
+		decisao[NUM_P] = "mpee";
+	else if (vendaD < cMPEE[i])
+		decisao[NUM_P] = "0";
+
+	printf("VD: %s %.2f %.2f %.2f %s\n", lista_produtos[i].nome, margem, desconto, margem_d, decisao);
+
+
+
+}
 
 int main(){
     char comando;
     while (1) {
-		
+		int i;
+		double desconto;
         comando = getchar(); /* le o comando */
         while (comando == '\n' || comando == ' '){
 			comando = getchar();
@@ -404,22 +447,26 @@ int main(){
             executa_d(); /* Executa comando d */
             break;
         case 'c':
-            executa_c();/* Executa comando c */
+            executa_c(); /* Executa comando c */
             break;
         case 'w':
-			executa_w();/* Executa comando w */
+        	scanf("%d",&i);
+			executa_w(i);/* Executa comando w */
             break;
         case 't':
-            executa_t();/* Executa comando t */
+            executa_t(); /* Executa comando t */
             break;
         case 'v':
-            /* Executa comando v */
+        	scanf("%d",&i);
+        	scanf("%lf",&desconto);
+            executa_v(i , desconto);/* Executa comando v */
             break;
         case 'x':
             /* Executa comando x */
             return EXIT_SUCCESS; /* Termina o programa */
         default:
             printf("ERRO: Comando [%c] desconhecido\n",comando);
+     		
         }
         getchar(); /* le o '\n' introduzido pelo utilizador */
     }
