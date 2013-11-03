@@ -9,6 +9,10 @@
 
 /* directivas de pre-compilador, definicao de tipos/estruturas, variaveis globais, etc. */
 
+	tot[] = "tot";
+	ind[] = "ind";
+	mpee[] = "mpee";
+    zero[] = "0";
 
 typedef struct{
 	char nome[NOME_PRODUTO+1]; 		/* Vector com o nome do produto */
@@ -403,7 +407,7 @@ void executa_v(int i , double desconto)
 	double margem = 0;
 	double margem_d = 0;
 	double vendaD = 0;
-	char decisao[];
+	char *decisao;
 
 	i = i - 1;
 
@@ -418,16 +422,16 @@ void executa_v(int i , double desconto)
 	margem_d = (vendaD - custo)/(vendaD)*CEM_POR_CENTO;
 
 	if (cTOT[i] <= vendaD)
-		decisao[] = "tot";
+		decisao= tot;
 
 	else if (cIND[i] <= vendaD && vendaD < cTOT[i])
-		decisao[] = "ind";
+		decisao[] = ind;
 
 	else if (cMPEE[i] <= vendaD && vendaD < cIND[i])
-		decisao[] = "mpee";
+		decisao[] = mpee;
 
 	else if (vendaD < cMPEE[i])
-		decisao[] = "0";
+		decisao[] = zero;
 
 	printf("VD: %s %.2f %.2f %.2f %s\n", lista_produtos[i].nome, margem, desconto, margem_d, decisao);
 
