@@ -403,7 +403,7 @@ void executa_v(int i , double desconto)
 	double margem = 0;
 	double margem_d = 0;
 	double vendaD = 0;
-	char decisao[NUM_P];
+	char decisao[];
 
 	i = i - 1;
 
@@ -418,13 +418,16 @@ void executa_v(int i , double desconto)
 	margem_d = (vendaD - custo)/(vendaD)*CEM_POR_CENTO;
 
 	if (cTOT[i] <= vendaD)
-		decisao[NUM_P] = "tot";
+		decisao[] = "tot";
+
 	else if (cIND[i] <= vendaD && vendaD < cTOT[i])
-		decisao[NUM_P] = "ind";
+		decisao[] = "ind";
+
 	else if (cMPEE[i] <= vendaD && vendaD < cIND[i])
-		decisao[NUM_P] = "mpee";
+		decisao[] = "mpee";
+
 	else if (vendaD < cMPEE[i])
-		decisao[NUM_P] = "0";
+		decisao[] = "0";
 
 	printf("VD: %s %.2f %.2f %.2f %s\n", lista_produtos[i].nome, margem, desconto, margem_d, decisao);
 
